@@ -7,6 +7,12 @@ public class SyncBankAccount {
     public synchronized void deposit(double amount) {
         if (amount > 0) {
             System.out.println(Thread.currentThread().getName() + " is depositing $" + amount);
+            try {
+                System.out.println(Thread.currentThread().getName() + " is holding lock for 3 seconds...");
+                Thread.sleep(3000); // Simulate long operation while lock is held
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
             balance += amount;
             System.out.println(" -> Deposit successful. New Balance: $" + balance);
         }
